@@ -103,6 +103,9 @@ let bizFuzz num =
           
 
 let monthDay d y =
+    match (y<1582) with 
+    |true -> failwith "date too early"
+    |_ ->
     match ((d > 0) && (d < 32)) with 
     | true -> "January"
     | _ -> match ((d > 31) && (d < 60) && (isLeap y = false)) || ((d > 31) && (d < 61) && (isLeap y = true)) with 
@@ -124,12 +127,13 @@ let monthDay d y =
                                                                                     |false -> match ((d > 273) && (d < 305) && (isLeap y = false)) || ((d > 274) && (d < 306) && (isLeap y = true)) with 
                                                                                                 |true -> "October"
                                                                                                 |false -> match ((d > 304) && (d < 335) && (isLeap y = false)) || ((d > 305) && (d < 336) && (isLeap y = true)) with
-                                                                                                            |_ -> match ((d > 212) && (d < 244) && (isLeap y = false)) || ((d > 213) && (d < 245) && (isLeap y = true)) with 
                                                                                                                         |true -> "November"
-                                                                                                                        |false -> match ((d > 334) && (d < 366) && (isLeap y = false)) || ((d > 335) && (d < 366) && (isLeap y = true)) with 
+                                                                                                                        |false -> match ((d > 334) && (d < 366) && (isLeap y = false)) || ((d > 335) && (d < 367) && (isLeap y = true)) with 
                                                                                                                                     |true -> "December"
-                                                                                                                                    |_ -> failwith "Invalid"
+                                                                                                                                    |_ -> failwith "oops"
 
+    
+  
 
     
   
